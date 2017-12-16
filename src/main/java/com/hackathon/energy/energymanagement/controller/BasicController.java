@@ -30,14 +30,14 @@ import com.sun.jersey.core.util.MultivaluedMapImpl;
 
 @Controller
 public class BasicController {
-
+/*
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String loginPage()
 	{
 		System.out.println("in loginPage ");
 		//return new ModelAndView("welcomepage", "message", message);  
 		return "welcomepage";
-	}
+	}*/
 
 /*
 	@RequestMapping(value="/tpview", method = RequestMethod.GET)
