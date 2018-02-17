@@ -29,6 +29,8 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import constants.BillConstants;
+
 
 @Path("/bill")
 public class BillService {
@@ -71,13 +73,18 @@ public class BillService {
 			
 			
 		
-			FileReader fr = new FileReader(new File(""));
+			FileReader fr = new FileReader(new File(BillConstants.AUDITFILEPATH));
 			
 			BufferedReader br = new BufferedReader(fr);
 			
 			String s = br.readLine();
+			
 			while(s!=null)
-				sb.append(s);
+				{
+				
+					sb.append(s).append("|");
+					s= br.readLine();
+				}
 			
 		} catch (Exception  e) {
 			// TODO Auto-generated catch block
@@ -90,25 +97,27 @@ public class BillService {
 	
 	
 	@GET
-	@Path("/getAuditData{id}")
+	@Path("/getAuditData/{id}")
 	@Produces("application/json")
-	public Response getAuditData(@PathParam("id") String id)
+	public Response getAuditData1(@PathParam("id") String id)
 	{	
 		StringBuffer sb= new StringBuffer();
 		try {
 					
-			FileReader fr = new FileReader(new File(""));
+			FileReader fr = new FileReader(new File(BillConstants.AUDITFILEPATH));
 			
 			BufferedReader br = new BufferedReader(fr);
 			
 			String s = br.readLine();
 			while(s!=null)
 				{
-					if(id.equals(s.substring(2, 2)))
+				
+					if(id.equals(s.substring(2, 4)))
 					{
-						sb.append(s);
+						sb.append(s).append("|");
+						
 					}
-					
+					s = br.readLine();
 				}
 			
 		} catch (Exception  e) {
@@ -120,5 +129,10 @@ public class BillService {
 				
 	}
 	
+	
+	public static void main(String[] args) {
+		BillService ob1 = new BillService();
+		System.out.println(ob1.getAuditData1("B1").getEntity().toString());
+	}
 
 }
